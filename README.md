@@ -1,4 +1,5 @@
 This is the home page or the ui where user select the required inputs
+
 ![alt text](image.png)
 
 And when user click on start scraping button, It started scraping the cause list from the backend 
