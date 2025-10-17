@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar static navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+            <a class="navbar-brand" href="/">CauseList</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+          <a class="nav-link" href="/result">Result</a>
+        </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Result
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">All</a></li>
+                            <li><a class="dropdown-item" href="result.html">Civil</a></li>
+                          
+                            <li><a class="dropdown-item" href="#">Criminal</a></li>
+                        </ul>
+                    </li> -->
+                    <!-- <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li> -->
+                </ul>
+                <!-- <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+            </div>
+        </div>
+    </nav>
+    <!-- <h1 class="my-4" style="text-align: center;">Download Cause List Here</h1> -->
+    <div class="container">
+<div class="container my-4 py-4">
+    <div class="container form-control m-4 px-4 py-3 shadow-lg" style="display: flex; justify-content: space-between;">
+        <div class="date">
+            <input type="date" class="form-control" name="date" id="date" onchange="filterTable()">
+        </div>
+        <div class="case_type ">
+            <div class="form-control">
+                <label for="case_type">Case Type : </label>
+                <Select id="case_type" name="case_type" onchange="filterTable()">
+                    <option value="">All</option>
+                    <option value="civil">Civil</option>
+                    <option value="criminal">Criminal</option>
+                </Select>
+            </div>
+        </div>
+        <div class="search">
+            <input class="form-control" id="tableFilter" type="search" placeholder="Search" aria-label="Search" onkeyup="filterTable()">
+        </div>
+    </div>
+    <table class="table table-bordered border-primary" id="myTable">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Sr. No.</th>
+                <th scope="col" >Name</th>
+                <th scope="col">Case-Type</th>
+                <th scope="col">Date</th>
+                <th scope="col">Pdf</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr >
+                <td >1</td>
+                <td >Mark</td>
+                <td >Civil</td>
+                <td>2025-10-15</td>
+                <td ><a href="" class="btn btn-primary">View</a></td>
+            </tr>
+            <tr >
+                <td >2</td>
+                <td >shubh</td>
+                <td >Civil</td>
+                <td>2025-10-16</td>
+                <td ><a href="" class="btn btn-primary">View</a></td>
+            </tr>
+            <tr >
+                <td >2</td>
+                <td >mark</td>
+                <td >Criminal</td>
+                <td>2025-10-16</td>
+                <td ><a href="" class="btn btn-primary">View</a></td>
+            </tr>
+   
+</tbody>
+</table>
+</div>
+     
+    </div>
+    <hr>
+    <script>
+        // Set today's date as the max value for the date input
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('max', today);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+        <!-- <script>
+        document.getElementById('tableFilter').addEventListener('input', function() {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#myTable tbody tr');
+            
+            rows.forEach(function(row) {
+                let cells = row.querySelectorAll('td');
+                let match = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(filter));
+                
+                row.style.display = match ? '' : 'none';
+            });
+        });
+    </script> -->
+
+   <script>
+    function filterTable() {
+        let dateFilter = document.getElementById('date').value;
+        let searchFilter = document.getElementById('tableFilter').value.toLowerCase();
+        let caseTypeFilter = document.getElementById('case_type').value.toLowerCase();
+        let table = document.getElementById('myTable');
+        let rows = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName('td');
+            let name = cells[1].textContent.toLowerCase();
+            let caseType = cells[2].textContent.toLowerCase();
+            let date = cells[3].textContent;
+            let showRow = true;
+
+            // Apply date filter
+            if (dateFilter && date !== dateFilter) {
+                showRow = false;
+            }
+
+            // Apply case type filter
+            if (caseTypeFilter && caseType !== caseTypeFilter) {
+                showRow = false;
+            }
+
+            // Apply search filter
+            if (searchFilter && !name.includes(searchFilter) && !date.includes(searchFilter)) {
+                showRow = false;
+            }
+
+            // Show or hide the row based on filters
+            if (showRow) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+</script>
+</body>
+
+</html>
