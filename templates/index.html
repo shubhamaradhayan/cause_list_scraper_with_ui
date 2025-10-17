@@ -144,7 +144,7 @@
                 date = document.getElementById('date').value;
                 console.log(state_code, dist_code, court_complex, court_name, date);
                 if (state_code != '' & dist_code != '' & court_complex != '' & court_name != '' & date != '') {
-                    alert('Scraping started! Check the Result page after some time.');
+                    alert('Scraping started! Please don\'t reload the page, it may take some time.');
                     // Disable the button to prevent multiple clicks
                     document.getElementById('startScrapingButton').classList.add('disabled');
                     document.getElementById('loading').style.display = 'block';
